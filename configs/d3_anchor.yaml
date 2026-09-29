@@ -1,0 +1,5 @@
+model: D3
+tag: D3
+_base: bf.yaml
+d3: {anchor_tier: A1}
+features: {reliance: true, budget: true, excess: true, trust: true, anchor: true}

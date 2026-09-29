@@ -1,0 +1,31 @@
+# ---> Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+# ---> Config / secrets
+configs/local.yaml
+*.local.yaml
+.env
+# ---> Data & logs (large / generated)
+logs/*.csv
+logs/*.parquet
+logs/*.jsonl
+!logs/.gitkeep
+data/*.npz
+data/*.pt
+data/cache/
+*.safetensors
+# ---> Experiments output
+experiments/outputs/
+results/
+wandb/
+mlruns/
+# ---> OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+# ---> Reproducibility: keep these!
+# DO NOT ignore: configs/*.yaml (except local), tests/regression reference numbers

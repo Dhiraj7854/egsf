@@ -1,0 +1,5 @@
+model: D2
+tag: D2
+_base: bf.yaml
+d2: {kappa: 0.2, kappa_sweep: [0.1, 0.2, 0.3]}
+features: {reliance: true, budget: true, excess: true, trust: true}

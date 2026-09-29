@@ -1,0 +1,7 @@
+model: BF
+tag: BF
+seed: 0
+data: {K: 4, regimes: [R1, R2, R3, R4, R5], rho_corr: [0.6, 0.7, 0.8, 0.9]}
+bf: {d: 64, lr: 1.0e-03, wd: 1.0e-04, early_stop: true}
+features: {}
+gate0: {min_conflict_drop_at_0.9: 0.10}

@@ -1,0 +1,5 @@
+model: BAL-A
+tag: BAL-A
+_base: bf.yaml
+bal_a: {attr_threshold: 0.6}
+features: {reliance_only: true}

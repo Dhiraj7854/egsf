@@ -1,0 +1,5 @@
+model: D0
+tag: D0
+_base: bf.yaml
+d0: {S: 6, methods: [resample, gradxinput, ig1]}
+features: {reliance: true}

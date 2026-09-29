@@ -1,0 +1,4 @@
+model: C8
+tag: C8
+stretch: true
+features: {mllm_lora: false}

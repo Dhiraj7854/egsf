@@ -1,0 +1,5 @@
+model: D4
+tag: D4
+_base: bf.yaml
+d4: {K: 5, z: 1.64}
+features: {reliance: true, budget: true, excess: true, trust: true, anchor: true, uncertainty: true}

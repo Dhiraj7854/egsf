@@ -1,0 +1,5 @@
+model: BAL-G
+tag: BAL-G
+_base: bf.yaml
+bal_g: {method: ogm-ge-simplified}
+features: {gradient_modulation: true}

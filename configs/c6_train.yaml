@@ -1,0 +1,4 @@
+model: C6
+tag: C6
+optional: true
+features: {train_regularizer: false}

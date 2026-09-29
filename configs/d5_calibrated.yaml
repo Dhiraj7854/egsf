@@ -1,0 +1,5 @@
+model: D5
+tag: D5
+_base: bf.yaml
+d5: {calibrator: isotonic}
+features: {reliance: true, budget: true, excess: true, trust: true, anchor: true, uncertainty: true, calibrate: true}

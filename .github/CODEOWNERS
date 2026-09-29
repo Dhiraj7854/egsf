@@ -1,0 +1,16 @@
+# Owners: A=data+base, B=diagnostics, C=decision/eval
+# Replace @a/@b/@c with GitHub usernames.
+/data/ @a
+/models/ @a
+/configs/u_mod.yaml @a
+/configs/bf*.yaml @a
+/configs/bal_*.yaml @a
+/diagnostics/ @b
+/configs/d*.yaml @b
+/decision/ @c
+/eval/ @c
+/common/ @c
+/configs/c*.yaml @c
+/experiments/ @a @b @c
+/tests/ @a @b @c
+/notes/ @a @b @c

@@ -1,0 +1,5 @@
+model: C2
+tag: C2
+_base: bf.yaml
+c2: {pid_tier: 2}
+features: {reliance: true, budget: true, excess: true, trust: true, anchor: true, uncertainty: true, calibrate: true, crc: true, gate: true, pid: true}

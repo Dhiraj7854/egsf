@@ -1,0 +1,4 @@
+model: C4
+tag: C4
+c4: {abstain_u_thr: 0.5}
+features: {reliance: true, budget: true, excess: true, trust: true, anchor: true, uncertainty: true, calibrate: true, crc: true, gate: true, pid: true, real: true, abstain: true}

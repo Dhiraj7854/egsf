@@ -1,0 +1,6 @@
+model: U-Mod
+tag: U-Mod
+seed: 0
+data: {K: 4, regimes: [R1, R2, R3, R4, R5], rho_corr: [0.6, 0.7, 0.8, 0.9]}
+umod: {hidden: 64, temp_scale: true, per_environment: true}
+features: {}

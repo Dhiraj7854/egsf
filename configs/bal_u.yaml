@@ -1,0 +1,5 @@
+model: BAL-U
+tag: BAL-U
+_base: bf.yaml
+bal_u: {kl_weight: 0.01}
+features: {uniform_kl: true}

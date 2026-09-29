@@ -1,0 +1,5 @@
+model: BF-Oracle
+tag: BF-Oracle
+_base: bf.yaml
+oracle: {method: group-dro}
+features: {}

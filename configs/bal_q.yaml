@@ -1,0 +1,5 @@
+model: BAL-Q
+tag: BAL-Q
+_base: bf.yaml
+bal_q: {quality: snr}
+features: {quality_gate: true}

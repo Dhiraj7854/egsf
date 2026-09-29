@@ -1,0 +1,6 @@
+model: D1
+tag: D1
+_base: bf.yaml
+d1: {tier: 1, success_margin_auroc: 0.05}
+features: {reliance: true, budget: true, excess: true}
+gate1: {needs: [R2, R5], at_least_regimes: 3, no_regress: [R1, R3]}

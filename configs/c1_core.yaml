@@ -1,0 +1,5 @@
+model: C1
+tag: C1
+_base: bf.yaml
+c1: {alpha_risk: 0.1, slack_s: 0.05, floor_eps: 1.0e-03}
+features: {reliance: true, budget: true, excess: true, trust: true, anchor: true, uncertainty: true, calibrate: true, crc: true, gate: true}

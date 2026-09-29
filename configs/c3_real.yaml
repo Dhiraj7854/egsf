@@ -1,0 +1,4 @@
+model: C3
+tag: C3
+c3: {anchor_tier: A2}
+features: {reliance: true, budget: true, excess: true, trust: true, anchor: true, uncertainty: true, calibrate: true, crc: true, gate: true, pid: true, real: true}
