@@ -54,7 +54,7 @@ def calibrate_e4_crc(
     valid_idx = np.where(cum_risk <= alpha)[0]
 
     if len(valid_idx) > 0:
-        idx = valid_idx[-1]
+        idx = valid_idx[0]
         lambda_hat = float(cal_scores[sorted_indices[idx]])
     else:
         lambda_hat = float(np.min(cal_scores))
