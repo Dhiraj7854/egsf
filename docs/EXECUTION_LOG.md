@@ -11,3 +11,4 @@
 | 7 | 2026-10-04 | 1.4 | python egsf/models/bf_oracle.py | BF-Oracle self-test passed (avoids R2 shortcut collapse) | PASS | egsf/models/bf_oracle.py | 1.5 Implement BAL-U (Model 4) |
 | 8 | 2026-10-04 | 1.5 | python egsf/models/bal_u.py | BAL-U self-test passed (100% accuracy on R1 causal with budget scaling) | PASS | egsf/models/bal_u.py | 1.6 Implement BAL-G (Model 5) |
 | 9 | 2026-10-04 | 1.6 | python egsf/models/bal_g.py | BAL-G self-test passed (OGM-GE gradient modulation & group gating) | PASS | egsf/models/bal_g.py | 1.7 Implement BAL-Q (Model 6) |
+| 10 | 2026-10-04 | 1.7 | python egsf/models/bal_q.py | BAL-Q self-test passed (quantile-thresholded budget gating) | PASS | egsf/models/bal_q.py | 1.8 Implement BAL-A (Model 7) |

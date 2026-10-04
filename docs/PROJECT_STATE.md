@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.7 — Implement and verify BAL-Q (Model 6: Quantile-Gated Budget Baseline)
+1.8 — Implement and verify BAL-A (Model 7: Anchor-Gated Budget Baseline)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -16,21 +16,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.4 Implement and verify BF-Oracle (Model 3) oracle baseline (egsf/models/bf_oracle.py)
 - [x] 1.5 Implement and verify BAL-U (Model 4) unimodal budget-aware baseline (egsf/models/bal_u.py)
 - [x] 1.6 Implement and verify BAL-G (Model 5) OGM-GE group-gated baseline (egsf/models/bal_g.py)
+- [x] 1.7 Implement and verify BAL-Q (Model 6) quantile-gated baseline (egsf/models/bal_q.py)
 
 ## Current Experiment
-Step 1.6 Self-test (BAL-G OGM-GE)
+Step 1.7 Self-test (BAL-Q)
 
 ## Current Model
-Model 5 (BAL-G) -> Model 6 (BAL-Q)
+Model 6 (BAL-Q) -> Model 7 (BAL-A)
 
 ## Current Gate
-Gate 1 (Pre-requisite: Models 1–5 validated)
+Gate 1 (Pre-requisite: Models 1–6 validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.7 — Implement BAL-Q (Model 6: Quantile-Gated Budget Baseline) in egsf/models/bal_q.py
+1.8 — Execute BAL-A (Model 7) self-test in egsf/models/bal_a.py
 
 ## Repository State
 - Fresh init, skeleton directories created
