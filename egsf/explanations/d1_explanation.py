@@ -74,7 +74,7 @@ def compute_d1_explanations(
         alpha = step / float(n_steps)
         xs_step = [x * alpha for x in xs_t]
         for x in xs_step:
-            x.requires_grad_(True)
+            x.retain_grad()
 
         if is_multimodal:
             out_step = model(xs_step)
@@ -84,6 +84,7 @@ def compute_d1_explanations(
 
         # Gather target class logits
         target_logits = logits_step[torch.arange(N), targets]
+        model.zero_grad()
         target_logits.sum().backward()
 
         for m in range(M):
