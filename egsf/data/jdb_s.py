@@ -37,7 +37,8 @@ Split layout
 ------------
   train, val_id          — training-environment distribution
   conflict_dev           — cue-broken env (budget/anchor tuning)
-  cal_g, cal_crc         — cue-broken env (calibration maps)
+  cal_g                  — cue-broken env (calibration maps)
+  cal_crc                — fresh in-distribution ID env (CRC risk calibration)
   test_id, test_conflict — held-out evaluation
 """
 
@@ -332,7 +333,7 @@ def generate_jdbs(
     splits["val_id"]        = _gen_split(n_per_env["val_id"],        False,  0)
     splits["conflict_dev"]  = _gen_split(n_per_env["conflict_dev"],  True,  -1)
     splits["cal_g"]         = _gen_split(n_per_env["cal_g"],         True,  -1)
-    splits["cal_crc"]       = _gen_split(n_per_env["cal_crc"],       True,  -1)
+    splits["cal_crc"]       = _gen_split(n_per_env["cal_crc"],       False,  0)
     splits["test_id"]       = _gen_split(n_per_env["test_id"],       False,  0)
     splits["test_conflict"] = _gen_split(n_per_env["test_conflict"], True,  -1)
 
@@ -441,7 +442,7 @@ def _self_test() -> int:
     print("\n[Test 5] Cue P(c=y) ~= 1/K=0.25 in cue-broken splits (tol=0.08):")
     ds = generate_jdbs("R2", rho_corr=0.9, seed=2)
     expected = 1.0 / 4
-    for sp in ["conflict_dev", "cal_g", "cal_crc", "test_conflict"]:
+    for sp in ["conflict_dev", "cal_g", "test_conflict"]:
         obs = float(np.mean(ds[sp]["c"] == ds[sp]["y"]))
         _check(abs(obs - expected) < 0.08,
                f"'{sp}': P(c=y)={obs:.3f}, expected~={expected:.3f}")
