@@ -1,0 +1,130 @@
+# ============================================================
+# JDB-S  —  Synthetic Benchmark Configuration
+# EGSF v8.0
+# All experiments must import this file. Never hardcode these.
+# ============================================================
+
+data:
+  # Number of classes
+  K: 4
+
+  # Shortcut correlation grid
+  rho_corr: [0.6, 0.7, 0.8, 0.9]
+
+  # Causal modality noise std
+  sigma_causal: 0.5
+
+  # Cue modality noise std
+  sigma_cue: 0.3
+
+  # Number of environments (train envs; cue-broken env is additional)
+  n_envs: 3
+
+  # Dataset sizes per environment
+  n_per_env:
+    train: 1000
+    val_id: 200
+    conflict_dev: 200
+    cal_g: 200
+    cal_crc: 200
+    test_id: 500
+    test_conflict: 500
+
+  # Splits (names must match n_per_env keys)
+  splits:
+    - train
+    - val_id
+    - conflict_dev
+    - cal_g
+    - cal_crc
+    - test_id
+    - test_conflict
+
+  # Regimes
+  regimes:
+    - R1   # causal-dominant
+    - R2   # shortcut-dominant
+    - R3   # redundant
+    - R4   # synergy
+    - R5   # mixed per instance
+
+  # Regime-specific parameters
+  regime_params:
+    R1:
+      # X1 (causal) is clean, X2 (cue) is noisy
+      causal_weight: 0.9
+      cue_weight: 0.1
+      synergy: false
+    R2:
+      causal_weight: 0.1
+      cue_weight: 0.9
+      synergy: false
+    R3:
+      causal_weight: 0.5
+      cue_weight: 0.5
+      synergy: false
+    R4:
+      causal_weight: 0.5
+      cue_weight: 0.5
+      synergy: true
+    R5:
+      # Per-instance random mix
+      causal_weight: null   # sampled per instance from U(0,1)
+      cue_weight: null
+      synergy: false
+
+  # MLP feature dimension per modality
+  feature_dim: 8
+
+  # Cue-broken environment: c is independent of y
+  cue_broken_env: true
+
+experiment:
+  # Fixed seeds for all runs
+  seeds: [0, 1, 2, 3, 4]
+  # 3-seed dev subset
+  seeds_dev: [0, 1, 2]
+  # Reference benchmark subset for regression tests
+  seeds_regression: [0]
+  regimes_regression: [R1, R2, R5]
+  rho_regression: [0.7, 0.9]
+
+model:
+  # BF / U-Mod shared MLP config
+  hidden_dim: 64
+  n_layers: 2
+  dropout: 0.1
+  activation: relu
+
+training:
+  lr: 1.0e-3
+  weight_decay: 1.0e-4
+  batch_size: 256
+  max_epochs: 100
+  patience: 10        # early stopping patience (epochs)
+  min_delta: 1.0e-4
+
+temperature_scaling:
+  max_iter: 100
+  lr: 0.01
+
+reliance:
+  n_resample: 8       # S: number of resample draws for D0
+  delta_floor: 1.0e-6
+
+budget:
+  kappa_grid: [0.1, 0.2, 0.3]   # D2 trust interval grid
+
+uncertainty:
+  K_replicates: 5     # number of replicates for D4
+  z_lcb: 1.64         # one-sided 95% LCB
+
+crc:
+  alpha: 0.1          # target false-correction rate
+  n_splits: 1000      # number of random cal/test splits for E4
+
+paths:
+  data_dir: data/jdb_s
+  log_dir: logs
+  model_dir: models
+  results_dir: experiments
