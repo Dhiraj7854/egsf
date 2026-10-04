@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.16 — Execute Gate 1 Evaluation Sweep across Models 1–14 on JDB-S
+1.16 — Execute Master Gate Evaluation Sweep (Models 1–14 for Gate 1 & Gate 2)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -33,13 +33,13 @@ Step 1.15 Self-test (C1 EGSF-Core)
 Model 14 (C1 EGSF-Core)
 
 ## Current Gate
-Gate 1 (Pre-requisite: Models 1–14 complete, Gate 1 evaluation pending)
+Gate 1 & Gate 2 (Evaluation Pending)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.16 — Execute C1 EGSF-Core (Model 14) self-test in egsf/models/c1_egsf_core.py
+1.16 — Execute Master Gate Evaluation Sweep in egsf/experiments/run_gates.py --dev
 
 ## Repository State
 - Fresh init, skeleton directories created
