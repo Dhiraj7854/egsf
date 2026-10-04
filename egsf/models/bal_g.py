@@ -1,10 +1,11 @@
 """
 egsf/models/bal_g.py
 ────────────────────
-BAL-G: Budget-Aware Baseline - Group-Gated (Model 5) — EGSF v8.0, Step 1.6.
+BAL-G: Budget-Aware Baseline - Group-Gated / OGM-GE Gradient Modulation (Model 5) — EGSF v8.0, Step 1.6.
 
-A multimodal baseline that applies group-level budget gating weights
-g_m = B_m / sum_k B_k to fuse modality representations.
+Implements Group-Gated Budget Modulation & OGM-GE (On-the-fly Gradient Modulation, Peng et al. 2022).
+Applies group-level budget scaling g_m = B_m / sum_k B_k and dynamic gradient modulation alpha_m
+during backward optimization to prevent modality competition & shortcut dominance.
 """
 
 from __future__ import annotations
@@ -16,6 +17,7 @@ from typing import Dict, List, Optional, Tuple
 import numpy as np
 import torch
 import torch.nn as nn
+import torch.nn.functional as F
 from torch.utils.data import DataLoader, TensorDataset
 
 # Make project root importable
@@ -25,8 +27,7 @@ from egsf.utils.reproducibility import seed_everything
 
 class BALGroupGated(nn.Module):
     """
-    BAL-G: Group-Gated Multimodal Fusion Model.
-    Applies group-level static budget gates g_m = B_m / sum_k B_k.
+    BAL-G: Group-Gated Multimodal Fusion Model with OGM-GE Gradient Modulation support.
     """
 
     def __init__(
@@ -47,6 +48,9 @@ class BALGroupGated(nn.Module):
             )
             for dim in in_dims
         ])
+        self.heads = nn.ModuleList([
+            nn.Linear(hidden_dim, num_classes) for _ in range(self.num_modalities)
+        ])
         self.classifier = nn.Linear(hidden_dim, num_classes)
         self.register_buffer("gates", torch.ones(self.num_modalities, dtype=torch.float32) / self.num_modalities)
 
@@ -56,12 +60,15 @@ class BALGroupGated(nn.Module):
         norm_b = b_arr / tot
         self.gates.copy_(torch.tensor(norm_b, dtype=torch.float32))
 
-    def forward(self, xs: List[torch.Tensor]) -> torch.Tensor:
+    def forward(self, xs: List[torch.Tensor]) -> Tuple[torch.Tensor, List[torch.Tensor]]:
         h_list = [enc(x) for enc, x in zip(self.encoders, xs)]
         h_fused = torch.zeros_like(h_list[0])
         for m in range(self.num_modalities):
             h_fused = h_fused + self.gates[m] * h_list[m]
-        return self.classifier(h_fused)
+        
+        logits_fused = self.classifier(h_fused)
+        logits_indiv = [head(h) for head, h in zip(self.heads, h_list)]
+        return logits_fused, logits_indiv
 
 
 def train_bal_g(
@@ -70,6 +77,8 @@ def train_bal_g(
     xs_val: List[torch.Tensor | np.ndarray],
     y_val: torch.Tensor | np.ndarray,
     budgets: List[float] | np.ndarray = [0.5, 0.5],
+    use_ogmge: bool = True,
+    alpha_ogm: float = 0.5,
     in_dims: List[int] = [8, 8],
     num_classes: int = 4,
     hidden_dim: int = 64,
@@ -84,7 +93,7 @@ def train_bal_g(
     verbose: bool = False,
 ) -> Tuple[BALGroupGated, Dict[str, list]]:
     """
-    Train BAL-G model.
+    Train BAL-G model with OGM-GE gradient modulation.
     """
     seed_everything(seed)
     xs_tr_t = [torch.tensor(x, dtype=torch.float32) if isinstance(x, np.ndarray) else x for x in xs_train]
@@ -121,13 +130,30 @@ def train_bal_g(
             by   = batch[-1]
 
             optimizer.zero_grad()
-            logits = model(b_xs)
-            loss = criterion(logits, by)
-            loss.backward()
+            logits_fused, logits_indiv = model(b_xs)
+            
+            loss_fused = criterion(logits_fused, by)
+            loss_indiv = sum(criterion(l_i, by) for l_i in logits_indiv)
+            total_loss = loss_fused + 0.1 * loss_indiv
+
+            total_loss.backward()
+
+            # OGM-GE Gradient Modulation
+            if use_ogmge:
+                with torch.no_grad():
+                    losses = [criterion(l_i, by).item() for l_i in logits_indiv]
+                    max_loss = max(losses) + 1e-8
+                    for m, enc in enumerate(model.encoders):
+                        ratio = losses[m] / max_loss
+                        coeff = 1.0 - np.tanh(alpha_ogm * (1.0 - ratio))
+                        for p in enc.parameters():
+                            if p.grad is not None:
+                                p.grad.mul_(coeff)
+
             optimizer.step()
 
-            running_loss += loss.item() * len(by)
-            preds = logits.argmax(dim=-1)
+            running_loss += loss_fused.item() * len(by)
+            preds = logits_fused.argmax(dim=-1)
             correct += (preds == by).sum().item()
             total += len(by)
 
@@ -144,10 +170,10 @@ def train_bal_g(
                 b_xs = list(batch[:-1])
                 by   = batch[-1]
 
-                logits = model(b_xs)
-                loss = criterion(logits, by)
+                logits_fused, _ = model(b_xs)
+                loss = criterion(logits_fused, by)
                 running_val_loss += loss.item() * len(by)
-                preds = logits.argmax(dim=-1)
+                preds = logits_fused.argmax(dim=-1)
                 val_correct += (preds == by).sum().item()
                 val_total += len(by)
 
@@ -175,11 +201,11 @@ def train_bal_g(
 
 
 def _self_test() -> int:
-    """Self-test BAL-G (Model 5) on synthetic JDB-S data."""
+    """Self-test BAL-G (Model 5 - OGM-GE Group Gated) on synthetic JDB-S data."""
     from egsf.data.jdb_s import generate_jdbs
 
     print("=" * 62)
-    print("BAL-G (MODEL 5) SELF-TEST")
+    print("BAL-G (MODEL 5 - OGM-GE GROUP GATED) SELF-TEST")
     print("=" * 62)
 
     failures = 0
@@ -195,14 +221,16 @@ def _self_test() -> int:
     bal_g.set_budgets([0.8, 0.2])
     x1 = torch.randn(32, 8)
     x2 = torch.randn(32, 8)
-    logits = bal_g([x1, x2])
-    _check(logits.shape == (32, 4), f"Logits shape (32, 4): got {logits.shape}")
+    logits_f, logits_i = bal_g([x1, x2])
+    _check(logits_f.shape == (32, 4), f"Fused logits shape (32, 4): got {logits_f.shape}")
+    _check(len(logits_i) == 2 and logits_i[0].shape == (32, 4), "Individual modality logits computed for OGM-GE")
 
     ds = generate_jdbs("R1", rho_corr=0.8, seed=0)
     m_bal_g, hist = train_bal_g(
         [ds["train"]["X1"], ds["train"]["X2"]], ds["train"]["y"],
         [ds["val_id"]["X1"], ds["val_id"]["X2"]], ds["val_id"]["y"],
         budgets=ds["ground_truth"]["B_star"],
+        use_ogmge=True,
         in_dims=[8, 8], seed=0, verbose=False
     )
     m_bal_g.eval()
@@ -210,10 +238,11 @@ def _self_test() -> int:
         x1_v = torch.tensor(ds["val_id"]["X1"], dtype=torch.float32)
         x2_v = torch.tensor(ds["val_id"]["X2"], dtype=torch.float32)
         y_v  = torch.tensor(ds["val_id"]["y"], dtype=torch.long)
-        preds = m_bal_g([x1_v, x2_v]).argmax(dim=-1)
+        logits, _ = m_bal_g([x1_v, x2_v])
+        preds = logits.argmax(dim=-1)
         acc_val = (preds == y_v).float().mean().item()
 
-    _check(acc_val > 0.85, f"R1 BAL-G val_acc > 0.85: got {acc_val:.4f}")
+    _check(acc_val > 0.85, f"R1 BAL-G OGM-GE val_acc > 0.85: got {acc_val:.4f}")
 
     print("=" * 62)
     if failures == 0:
