@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.4 — Implement and verify G-EGSF Core Module (Model 3)
+1.5 — Run Phase 1 Benchmark Sweep (Models 1–3)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -13,12 +13,13 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.1 Implement and verify JDB-S data generator (egsf/data/jdb_s.py)
 - [x] 1.2 Implement and verify U-Mod (Model 1) unimodal baseline (egsf/models/u_mod.py)
 - [x] 1.3 Implement and verify BF (Model 2) Base Fusion baseline (egsf/models/bf.py)
+- [x] 1.4 Implement and verify G-EGSF (Model 3) gated selective fusion core (egsf/models/egsf.py)
 
 ## Current Experiment
-Step 1.3 Self-test
+Step 1.4 Self-test
 
 ## Current Model
-Model 2 (BF) -> Model 3 (G-EGSF)
+Model 3 (G-EGSF)
 
 ## Current Gate
 Gate 1 (Pre-requisite: JDB-S, U-Mod, BF, and G-EGSF validated)
@@ -27,7 +28,7 @@ Gate 1 (Pre-requisite: JDB-S, U-Mod, BF, and G-EGSF validated)
 None
 
 ## Next Required Action
-1.4 — Execute G-EGSF (Model 3) self-test in egsf/models/egsf.py
+1.5 — Execute Phase 1 Benchmark Sweep via python egsf/experiments/run_phase1.py --dev
 
 ## Repository State
 - Fresh init, skeleton directories created
