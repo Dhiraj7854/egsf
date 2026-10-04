@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.12 — Implement and verify D3 Selective Gate (Model 11)
+1.13 — Implement and verify D4 Uncertainty Estimator (Model 12)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -21,21 +21,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.9 Implement and verify D0 Reliance Estimator (Model 8) (egsf/reliance/d0_reliance.py)
 - [x] 1.10 Implement and verify D1 Explanation Generator (Model 9) (egsf/explanations/d1_explanation.py)
 - [x] 1.11 Implement and verify D2 Budget Module (Model 10) (egsf/budget/d2_budget.py)
+- [x] 1.12 Implement and verify D3 Selective Gate (Model 11) (egsf/gate/d3_gate.py)
 
 ## Current Experiment
-Step 1.11 Self-test (D2 Budget Module)
+Step 1.12 Self-test (D3 Selective Gate)
 
 ## Current Model
-Model 10 (D2 Budget) -> Model 11 (D3 Selective Gate)
+Model 11 (D3 Selective Gate) -> Model 12 (D4 Uncertainty Estimator)
 
 ## Current Gate
-Gate 1 (Pre-requisite: Models 1–10 validated)
+Gate 1 (Pre-requisite: Models 1–11 validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.12 — Execute D3 Selective Gate (Model 11) self-test in egsf/gate/d3_gate.py
+1.13 — Execute D4 Uncertainty Estimator (Model 12) self-test in egsf/uncertainty/d4_uncertainty.py
 
 ## Repository State
 - Fresh init, skeleton directories created
