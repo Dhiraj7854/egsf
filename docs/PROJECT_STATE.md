@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.15 — Implement and verify C1 EGSF-Core (Model 14: Full Explanation-Guided Selective Fusion System)
+1.16 — Execute Gate 1 Evaluation Sweep across Models 1–14 on JDB-S
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -24,21 +24,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.12 Implement and verify D3 Selective Gate (Model 11) (egsf/gate/d3_gate.py)
 - [x] 1.13 Implement and verify D4 Uncertainty Estimator (Model 12) (egsf/uncertainty/d4_uncertainty.py)
 - [x] 1.14 Implement and verify E4 Conformal Risk Control (Model 13) (egsf/calibration/e4_crc.py)
+- [x] 1.15 Implement and verify C1 EGSF-Core (Model 14) (egsf/models/c1_egsf_core.py)
 
 ## Current Experiment
-Step 1.14 Self-test (E4 CRC)
+Step 1.15 Self-test (C1 EGSF-Core)
 
 ## Current Model
-Model 13 (E4 CRC) -> Model 14 (C1 EGSF-Core)
+Model 14 (C1 EGSF-Core)
 
 ## Current Gate
-Gate 1 (Pre-requisite: Models 1–13 validated)
+Gate 1 (Pre-requisite: Models 1–14 complete, Gate 1 evaluation pending)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.15 — Implement C1 EGSF-Core (Model 14) in egsf/models/c1_egsf_core.py
+1.16 — Execute C1 EGSF-Core (Model 14) self-test in egsf/models/c1_egsf_core.py
 
 ## Repository State
 - Fresh init, skeleton directories created
