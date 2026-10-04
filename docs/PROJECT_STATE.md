@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.5 — Run Phase 1 Benchmark Sweep (Models 1–3)
+1.4 — Reconcile Model Ladder & Validate BF-Oracle (Model 3)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -13,22 +13,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.1 Implement and verify JDB-S data generator (egsf/data/jdb_s.py)
 - [x] 1.2 Implement and verify U-Mod (Model 1) unimodal baseline (egsf/models/u_mod.py)
 - [x] 1.3 Implement and verify BF (Model 2) Base Fusion baseline (egsf/models/bf.py)
-- [x] 1.4 Implement and verify G-EGSF (Model 3) gated selective fusion core (egsf/models/egsf.py)
+- [x] 1.4 Implement and verify BF-Oracle (Model 3) oracle baseline (egsf/models/bf_oracle.py)
 
 ## Current Experiment
-Step 1.4 Self-test
+Step 1.4 Self-test (BF-Oracle)
 
 ## Current Model
-Model 3 (G-EGSF)
+Model 3 (BF-Oracle)
 
 ## Current Gate
-Gate 1 (Pre-requisite: JDB-S, U-Mod, BF, and G-EGSF validated)
+Gate 1 (Pre-requisite: JDB-S, U-Mod, BF, and BF-Oracle validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.5 — Execute Phase 1 Benchmark Sweep via python egsf/experiments/run_phase1.py --dev
+1.5 — Implement BAL-U (Model 4: Unimodal Budget-Aware Baseline) in egsf/models/bal_u.py
 
 ## Repository State
 - Fresh init, skeleton directories created
