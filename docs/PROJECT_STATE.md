@@ -4,28 +4,30 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.2 — Implement U-Mod (Model 1)
+1.4 — Implement and verify G-EGSF Core Module (Model 3)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
 - [x] 0.2 Write config & reproducibility utils
 - [x] 0.3 Verify python environment dependencies
 - [x] 1.1 Implement and verify JDB-S data generator (egsf/data/jdb_s.py)
+- [x] 1.2 Implement and verify U-Mod (Model 1) unimodal baseline (egsf/models/u_mod.py)
+- [x] 1.3 Implement and verify BF (Model 2) Base Fusion baseline (egsf/models/bf.py)
 
 ## Current Experiment
-Step 1.1 Self-test
+Step 1.3 Self-test
 
 ## Current Model
-None (Model 1: U-Mod is next)
+Model 2 (BF) -> Model 3 (G-EGSF)
 
 ## Current Gate
-Gate 1 (Pre-requisite: JDB-S validated)
+Gate 1 (Pre-requisite: JDB-S, U-Mod, BF, and G-EGSF validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.2 — Implement U-Mod (Model 1) unimodal architecture & training loop in egsf/models/u_mod.py
+1.4 — Execute G-EGSF (Model 3) self-test in egsf/models/egsf.py
 
 ## Repository State
 - Fresh init, skeleton directories created
