@@ -1,10 +1,10 @@
 # PROJECT STATE
 
 ## Current Phase
-Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
+Phase 1 Complete — Gate 1 & Gate 2 Certified
 
 ## Current Step
-1.16 — Execute Master Gate Evaluation Sweep (Models 1–14 for Gate 1 & Gate 2)
+1.16 — Gate 1 & Gate 2 Evaluation Complete
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -25,21 +25,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.13 Implement and verify D4 Uncertainty Estimator (Model 12) (egsf/uncertainty/d4_uncertainty.py)
 - [x] 1.14 Implement and verify E4 Conformal Risk Control (Model 13) (egsf/calibration/e4_crc.py)
 - [x] 1.15 Implement and verify C1 EGSF-Core (Model 14) (egsf/models/c1_egsf_core.py)
+- [x] 1.16 Empirical Master Gate Evaluation Sweep (Gate 1 & Gate 2 PASS)
 
 ## Current Experiment
-Step 1.15 Self-test (C1 EGSF-Core)
+Step 1.16 Gate Evaluation Sweep (results/gate_evaluation.json)
 
 ## Current Model
-Model 14 (C1 EGSF-Core)
+Models 1–14 Complete
 
 ## Current Gate
-Gate 1 & Gate 2 (Evaluation Pending)
+Gate 1: PASSED | Gate 2: PASSED
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.16 — Execute Master Gate Evaluation Sweep in egsf/experiments/run_gates.py --dev
+Proceed to Phase 2 (Real Data Benchmark JDB-R / Optional Extensions Models 15–21)
 
 ## Repository State
 - Fresh init, skeleton directories created

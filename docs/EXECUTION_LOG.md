@@ -20,3 +20,4 @@
 | 16 | 2026-10-04 | 1.13 | python egsf/uncertainty/d4_uncertainty.py | D4 Uncertainty self-test passed (MC-dropout 95% LCB gate bounds) | PASS | egsf/uncertainty/d4_uncertainty.py | 1.14 Implement E4 CRC (Model 13) |
 | 17 | 2026-10-04 | 1.14 | python egsf/calibration/e4_crc.py | E4 CRC self-test passed (conformal threshold lambda_hat=0.9812, risk 0.0, coverage 1.0) | PASS | egsf/calibration/e4_crc.py | 1.15 Implement C1 EGSF-Core (Model 14) |
 | 18 | 2026-10-04 | 1.15 | python egsf/models/c1_egsf_core.py | C1 EGSF-Core self-test passed (full selective fusion integration) | PASS | egsf/models/c1_egsf_core.py | 1.16 Master Gate Evaluation Sweep |
+| 19 | 2026-10-04 | 1.16 | python egsf/experiments/run_gates.py --dev | Gate 1 & Gate 2 PASS (C1 beats BF by +0.2480 on R2, +0.3207 on R5) | PASS | egsf/experiments/run_gates.py | Phase 2 Real Data / Extensions |

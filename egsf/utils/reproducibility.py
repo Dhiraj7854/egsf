@@ -27,7 +27,7 @@ def seed_everything(seed: int) -> None:
     os.environ["PYTHONHASHSEED"] = str(seed)
 
 
-def load_config(path: str | Path) -> dict:
+def load_config(path: str | Path = "configs/jdb_s.yaml") -> dict:
     """Load a YAML config file and return as dict."""
     with open(path, "r") as f:
         return yaml.safe_load(f)

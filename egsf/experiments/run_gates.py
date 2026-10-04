@@ -32,7 +32,7 @@ from egsf.data.jdb_s import generate_jdbs
 from egsf.explanations.d1_explanation import compute_d1_explanations
 from egsf.models.bf import train_bf_mod
 from egsf.models.bf_oracle import train_bf_oracle
-from egsf.models.c1_egsf_core import C1EGSFCore
+from egsf.models.c1_egsf_core import C1EGSFCore, train_c1_egsf
 from egsf.models.u_mod import train_u_mod
 from egsf.reliance.d0_reliance import compute_d0_reliance
 from egsf.utils.reproducibility import load_config, seed_everything
@@ -40,7 +40,7 @@ from egsf.utils.reproducibility import load_config, seed_everything
 
 def run_gate_evaluation(dev_mode: bool = True) -> Dict:
     """Run Gate 1 & Gate 2 empirical evaluation sweep across models and regimes."""
-    cfg = load_config()
+    cfg = load_config("configs/jdb_s.yaml")
     seeds = cfg["experiment"]["seeds_dev"] if dev_mode else cfg["experiment"]["seeds"]
     regimes = cfg["data"]["regimes"]
     rhos = [0.9] if dev_mode else cfg["data"]["rho_corr"]
@@ -79,8 +79,12 @@ def run_gate_evaluation(dev_mode: bool = True) -> Dict:
 
                 # 2. C1 EGSF-Core (Model 14)
                 B_star, B_kappa = compute_d2_budget(ds, kappa_grid=[0.1])
-                c1_model = C1EGSFCore(in_dims=[8, 8], num_classes=4)
-                c1_model.set_budget_bounds(B_kappa[0.1])
+                c1_model, _ = train_c1_egsf(
+                    [ds["train"]["X1"], ds["train"]["X2"]], ds["train"]["y"],
+                    [ds["val_id"]["X1"], ds["val_id"]["X2"]], ds["val_id"]["y"],
+                    budget_bounds=B_kappa[0.1],
+                    seed=seed
+                )
 
                 c1_model.eval()
                 with torch.no_grad():
