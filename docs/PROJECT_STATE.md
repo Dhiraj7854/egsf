@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.9 — Implement and verify D0 Reliance Estimator (Model 8)
+1.10 — Implement and verify D1 Explanation Generator (Model 9)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -18,21 +18,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.6 Implement and verify BAL-G (Model 5) OGM-GE group-gated baseline (egsf/models/bal_g.py)
 - [x] 1.7 Implement and verify BAL-Q (Model 6) quantile-gated baseline (egsf/models/bal_q.py)
 - [x] 1.8 Implement and verify BAL-A (Model 7) anchor-gated baseline (egsf/models/bal_a.py)
+- [x] 1.9 Implement and verify D0 Reliance Estimator (Model 8) (egsf/reliance/d0_reliance.py)
 
 ## Current Experiment
-Step 1.8 Self-test (BAL-A)
+Step 1.9 Self-test (D0 Reliance)
 
 ## Current Model
-Model 7 (BAL-A) -> Model 8 (D0 Reliance)
+Model 8 (D0 Reliance) -> Model 9 (D1 Explanation)
 
 ## Current Gate
-Gate 1 (Pre-requisite: Models 1–7 validated)
+Gate 1 (Pre-requisite: Models 1–8 validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.9 — Execute D0 Reliance (Model 8) self-test in egsf/reliance/d0_reliance.py
+1.10 — Execute D1 Explanation Generator (Model 9) self-test in egsf/explanations/d1_explanation.py
 
 ## Repository State
 - Fresh init, skeleton directories created
