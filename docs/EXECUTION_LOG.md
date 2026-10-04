@@ -15,3 +15,4 @@
 | 11 | 2026-10-04 | 1.8 | python egsf/models/bal_a.py | BAL-A self-test passed (anchor prototype distance gating) | PASS | egsf/models/bal_a.py | 1.9 Implement D0 Reliance (Model 8) |
 | 12 | 2026-10-04 | 1.9 | python egsf/reliance/d0_reliance.py | D0 Reliance self-test passed (KL resample perturbation reliance) | PASS | egsf/reliance/d0_reliance.py | 1.10 Implement D1 Explanation (Model 9) |
 | 13 | 2026-10-04 | 1.10 | python egsf/explanations/d1_explanation.py | D1 Explanation self-test passed (Integrated Gradients causal attribution 0.8956 > cue 0.1044) | PASS | egsf/explanations/d1_explanation.py | 1.11 Implement D2 Budget Module (Model 10) |
+| 14 | 2026-10-04 | 1.11 | python egsf/budget/d2_budget.py | D2 Budget self-test passed (min-env budget B_star & kappa trust bounds) | PASS | egsf/budget/d2_budget.py | 1.12 Implement D3 Selective Gate (Model 11) |

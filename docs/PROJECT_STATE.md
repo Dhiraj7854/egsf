@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.11 — Implement and verify D2 Budget Module (Model 10)
+1.12 — Implement and verify D3 Selective Gate (Model 11)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -20,21 +20,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.8 Implement and verify BAL-A (Model 7) anchor-gated baseline (egsf/models/bal_a.py)
 - [x] 1.9 Implement and verify D0 Reliance Estimator (Model 8) (egsf/reliance/d0_reliance.py)
 - [x] 1.10 Implement and verify D1 Explanation Generator (Model 9) (egsf/explanations/d1_explanation.py)
+- [x] 1.11 Implement and verify D2 Budget Module (Model 10) (egsf/budget/d2_budget.py)
 
 ## Current Experiment
-Step 1.10 Self-test (D1 Explanation Generator)
+Step 1.11 Self-test (D2 Budget Module)
 
 ## Current Model
-Model 9 (D1 Explanation) -> Model 10 (D2 Budget Module)
+Model 10 (D2 Budget) -> Model 11 (D3 Selective Gate)
 
 ## Current Gate
-Gate 1 (Pre-requisite: Models 1–9 validated)
+Gate 1 (Pre-requisite: Models 1–10 validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.11 — Implement D2 Budget Module (Model 10) in egsf/budget/d2_budget.py
+1.12 — Execute D3 Selective Gate (Model 11) self-test in egsf/gate/d3_gate.py
 
 ## Repository State
 - Fresh init, skeleton directories created
