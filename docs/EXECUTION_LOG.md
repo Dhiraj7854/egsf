@@ -18,3 +18,4 @@
 | 14 | 2026-10-04 | 1.11 | python egsf/budget/d2_budget.py | D2 Budget self-test passed (min-env budget B_star & kappa trust bounds) | PASS | egsf/budget/d2_budget.py | 1.12 Implement D3 Selective Gate (Model 11) |
 | 15 | 2026-10-04 | 1.12 | python egsf/gate/d3_gate.py | D3 Selective Gate self-test passed (budget-constrained gating) | PASS | egsf/gate/d3_gate.py | 1.13 Implement D4 Uncertainty (Model 12) |
 | 16 | 2026-10-04 | 1.13 | python egsf/uncertainty/d4_uncertainty.py | D4 Uncertainty self-test passed (MC-dropout 95% LCB gate bounds) | PASS | egsf/uncertainty/d4_uncertainty.py | 1.14 Implement E4 CRC (Model 13) |
+| 17 | 2026-10-04 | 1.14 | python egsf/calibration/e4_crc.py | E4 CRC self-test passed (conformal threshold lambda_hat=0.9812, risk 0.0, coverage 1.0) | PASS | egsf/calibration/e4_crc.py | 1.15 Implement C1 EGSF-Core (Model 14) |
