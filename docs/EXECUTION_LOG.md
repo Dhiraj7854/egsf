@@ -12,3 +12,4 @@
 | 8 | 2026-10-04 | 1.5 | python egsf/models/bal_u.py | BAL-U self-test passed (100% accuracy on R1 causal with budget scaling) | PASS | egsf/models/bal_u.py | 1.6 Implement BAL-G (Model 5) |
 | 9 | 2026-10-04 | 1.6 | python egsf/models/bal_g.py | BAL-G self-test passed (OGM-GE gradient modulation & group gating) | PASS | egsf/models/bal_g.py | 1.7 Implement BAL-Q (Model 6) |
 | 10 | 2026-10-04 | 1.7 | python egsf/models/bal_q.py | BAL-Q self-test passed (quantile-thresholded budget gating) | PASS | egsf/models/bal_q.py | 1.8 Implement BAL-A (Model 7) |
+| 11 | 2026-10-04 | 1.8 | python egsf/models/bal_a.py | BAL-A self-test passed (anchor prototype distance gating) | PASS | egsf/models/bal_a.py | 1.9 Implement D0 Reliance (Model 8) |
