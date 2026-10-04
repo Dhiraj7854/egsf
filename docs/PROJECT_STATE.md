@@ -4,7 +4,7 @@
 Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-1.13 — Implement and verify D4 Uncertainty Estimator (Model 12)
+1.14 — Implement and verify E4 Conformal Risk Control (Model 13)
 
 ## Completed Steps
 - [x] 0.1 Initialize repo skeleton
@@ -22,21 +22,22 @@ Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 - [x] 1.10 Implement and verify D1 Explanation Generator (Model 9) (egsf/explanations/d1_explanation.py)
 - [x] 1.11 Implement and verify D2 Budget Module (Model 10) (egsf/budget/d2_budget.py)
 - [x] 1.12 Implement and verify D3 Selective Gate (Model 11) (egsf/gate/d3_gate.py)
+- [x] 1.13 Implement and verify D4 Uncertainty Estimator (Model 12) (egsf/uncertainty/d4_uncertainty.py)
 
 ## Current Experiment
-Step 1.12 Self-test (D3 Selective Gate)
+Step 1.13 Self-test (D4 Uncertainty Estimator)
 
 ## Current Model
-Model 11 (D3 Selective Gate) -> Model 12 (D4 Uncertainty Estimator)
+Model 12 (D4 Uncertainty) -> Model 13 (E4 Conformal Risk Control)
 
 ## Current Gate
-Gate 1 (Pre-requisite: Models 1–11 validated)
+Gate 1 (Pre-requisite: Models 1–12 validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-1.13 — Execute D4 Uncertainty Estimator (Model 12) self-test in egsf/uncertainty/d4_uncertainty.py
+1.14 — Execute E4 Conformal Risk Control (Model 13) self-test in egsf/calibration/e4_crc.py
 
 ## Repository State
 - Fresh init, skeleton directories created

@@ -17,3 +17,4 @@
 | 13 | 2026-10-04 | 1.10 | python egsf/explanations/d1_explanation.py | D1 Explanation self-test passed (Integrated Gradients causal attribution 0.8956 > cue 0.1044) | PASS | egsf/explanations/d1_explanation.py | 1.11 Implement D2 Budget Module (Model 10) |
 | 14 | 2026-10-04 | 1.11 | python egsf/budget/d2_budget.py | D2 Budget self-test passed (min-env budget B_star & kappa trust bounds) | PASS | egsf/budget/d2_budget.py | 1.12 Implement D3 Selective Gate (Model 11) |
 | 15 | 2026-10-04 | 1.12 | python egsf/gate/d3_gate.py | D3 Selective Gate self-test passed (budget-constrained gating) | PASS | egsf/gate/d3_gate.py | 1.13 Implement D4 Uncertainty (Model 12) |
+| 16 | 2026-10-04 | 1.13 | python egsf/uncertainty/d4_uncertainty.py | D4 Uncertainty self-test passed (MC-dropout 95% LCB gate bounds) | PASS | egsf/uncertainty/d4_uncertainty.py | 1.14 Implement E4 CRC (Model 13) |
