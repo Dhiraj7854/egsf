@@ -1,28 +1,31 @@
 # PROJECT STATE
 
 ## Current Phase
-Step 0 — Setup
+Phase 1 — Synthetic Benchmark & Unimodal Baseline (Step 1)
 
 ## Current Step
-0.1 — Repository initialization
+1.2 — Implement U-Mod (Model 1)
 
 ## Completed Steps
-- [ ] 0.1 Initialize repo skeleton
+- [x] 0.1 Initialize repo skeleton
+- [x] 0.2 Write config & reproducibility utils
+- [x] 0.3 Verify python environment dependencies
+- [x] 1.1 Implement and verify JDB-S data generator (egsf/data/jdb_s.py)
 
 ## Current Experiment
-None
+Step 1.1 Self-test
 
 ## Current Model
-None
+None (Model 1: U-Mod is next)
 
 ## Current Gate
-None (Gate 0 not yet reached)
+Gate 1 (Pre-requisite: JDB-S validated)
 
 ## Known Failures
 None
 
 ## Next Required Action
-0.2 — Write project state content and verify environment packages
+1.2 — Implement U-Mod (Model 1) unimodal architecture & training loop in egsf/models/u_mod.py
 
 ## Repository State
 - Fresh init, skeleton directories created
