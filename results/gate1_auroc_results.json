@@ -1,0 +1,59 @@
+{
+  "gate1_pass": false,
+  "auroc_threshold": 0.55,
+  "no_regress_threshold": 0.65,
+  "r1_vs_r2_pass": true,
+  "r1_vs_r5_pass": true,
+  "r3_no_regress": false,
+  "r4_no_regress": false,
+  "n_comparisons_meeting_threshold": 4,
+  "comparison_results": {
+    "R1_vs_R2": {
+      "mean_auroc": 1.0,
+      "ci_lo": 1.0,
+      "ci_hi": 1.0,
+      "seed_aurocs": [
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "R1_vs_R5_shortcut": {
+      "mean_auroc": 0.9998929663608562,
+      "ci_lo": 0.9996831804281345,
+      "ci_hi": 1.000102752293578,
+      "seed_aurocs": [
+        1.0,
+        1.0,
+        0.9996788990825688
+      ]
+    },
+    "R1_vs_R3": {
+      "mean_auroc": 0.999475,
+      "ci_lo": 0.9987206545884013,
+      "ci_hi": 1.0002293454115987,
+      "seed_aurocs": [
+        0.998725,
+        1.0,
+        0.9997
+      ]
+    },
+    "R1_vs_R4": {
+      "mean_auroc": 0.9974250000000001,
+      "ci_lo": 0.9948357158646968,
+      "ci_hi": 1.0000142841353035,
+      "seed_aurocs": [
+        0.995625,
+        0.99665,
+        1.0
+      ]
+    }
+  },
+  "dev_mode": true,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "rho": 0.9
+}

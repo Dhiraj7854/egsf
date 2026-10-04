@@ -55,11 +55,14 @@ class BALQuantileGated(nn.Module):
         self.register_buffer("base_gates", torch.ones(self.num_modalities, dtype=torch.float32) / self.num_modalities)
         self.register_buffer("quantile_thresholds", torch.zeros(self.num_modalities, dtype=torch.float32))
 
-    def set_quantile_thresholds(self, reliance_scores: np.ndarray, budgets: List[float] | np.ndarray) -> None:
+    def set_quantile_thresholds(self, reliance_scores: np.ndarray, budgets: Optional[List[float] | np.ndarray] = None) -> None:
         """Calculate quantile thresholds from dataset reliance scores."""
-        b_arr = np.array(budgets, dtype=np.float32)
-        tot = b_arr.sum() + 1e-9
-        self.base_gates.copy_(torch.tensor(b_arr / tot, dtype=torch.float32))
+        if budgets is not None:
+            b_arr = np.array(budgets, dtype=np.float32)
+            tot = b_arr.sum() + 1e-9
+            self.base_gates.copy_(torch.tensor(b_arr / tot, dtype=torch.float32))
+        else:
+            self.base_gates.copy_(torch.ones(self.num_modalities, dtype=torch.float32) / float(self.num_modalities))
 
         q_vals = np.quantile(reliance_scores, q=self.quantile_tau, axis=0)
         self.quantile_thresholds.copy_(torch.tensor(q_vals, dtype=torch.float32))
@@ -89,7 +92,7 @@ def train_bal_q(
     y_train: torch.Tensor | np.ndarray,
     xs_val: List[torch.Tensor | np.ndarray],
     y_val: torch.Tensor | np.ndarray,
-    budgets: List[float] | np.ndarray = [0.5, 0.5],
+    budgets: Optional[List[float] | np.ndarray] = None,
     quantile_tau: float = 0.5,
     in_dims: List[int] = [8, 8],
     num_classes: int = 4,
@@ -217,7 +220,8 @@ def _self_test() -> int:
 
     bal_q = BALQuantileGated(in_dims=[8, 8], num_classes=4, quantile_tau=0.5)
     rel_mock = np.array([[0.8, 0.2], [0.1, 0.9], [0.5, 0.5]])
-    bal_q.set_quantile_thresholds(rel_mock, [0.6, 0.4])
+    bal_q.set_quantile_thresholds(rel_mock) # Pure Q-only without budgets
+    _check(torch.allclose(bal_q.base_gates, torch.tensor([0.5, 0.5])), "Pure Q-only base_gates default to uniform [0.5, 0.5]")
 
     x1 = torch.randn(32, 8)
     x2 = torch.randn(32, 8)
@@ -228,10 +232,11 @@ def _self_test() -> int:
     m_bal_q, hist = train_bal_q(
         [ds["train"]["X1"], ds["train"]["X2"]], ds["train"]["y"],
         [ds["val_id"]["X1"], ds["val_id"]["X2"]], ds["val_id"]["y"],
-        budgets=ds["ground_truth"]["B_star"],
+        budgets=None,
         quantile_tau=0.5,
         in_dims=[8, 8], seed=0, verbose=False
     )
+    _check(torch.allclose(m_bal_q.base_gates, torch.tensor([0.5, 0.5])), "Trained pure Q-only BAL-Q base_gates remain [0.5, 0.5]")
     m_bal_q.eval()
     with torch.no_grad():
         x1_v = torch.tensor(ds["val_id"]["X1"], dtype=torch.float32)

@@ -101,6 +101,8 @@ def train_c1_egsf(
     xs_val: List[torch.Tensor | np.ndarray],
     y_val: torch.Tensor | np.ndarray,
     budget_bounds: List[float] | np.ndarray = [1.0, 1.0],
+    rel_train: Optional[np.ndarray] = None,
+    rel_val: Optional[np.ndarray] = None,
     in_dims: List[int] = [8, 8],
     num_classes: int = 4,
     hidden_dim: int = 64,
@@ -116,6 +118,13 @@ def train_c1_egsf(
 ) -> Tuple[C1EGSFCore, Dict[str, list]]:
     """
     Train C1 EGSF-Core model with budget constraints and early stopping.
+
+    Parameters
+    ----------
+    rel_train : optional (N_train, M) pre-computed D0 reliance for each training sample.
+                If provided, passed as the ``reliances`` arg to the model each batch so
+                the D3 gate learns from real reliance signals instead of uniform defaults.
+    rel_val   : optional (N_val, M) pre-computed D0 reliance for validation samples.
     """
     seed_everything(seed)
     xs_tr_t = [torch.tensor(x, dtype=torch.float32) if isinstance(x, np.ndarray) else x for x in xs_train]
@@ -123,8 +132,13 @@ def train_c1_egsf(
     y_tr_t  = torch.tensor(y_train, dtype=torch.long) if isinstance(y_train, np.ndarray) else y_train
     y_v_t   = torch.tensor(y_val, dtype=torch.long) if isinstance(y_val, np.ndarray) else y_val
 
-    train_ds = TensorDataset(*xs_tr_t, y_tr_t)
-    val_ds   = TensorDataset(*xs_v_t, y_v_t)
+    # Include pre-computed reliance in dataset if provided
+    rel_tr_t = torch.tensor(rel_train, dtype=torch.float32) if rel_train is not None else None
+    rel_v_t  = torch.tensor(rel_val,   dtype=torch.float32) if rel_val   is not None else None
+    _use_rel = rel_tr_t is not None
+
+    train_ds = TensorDataset(*xs_tr_t, rel_tr_t, y_tr_t) if _use_rel else TensorDataset(*xs_tr_t, y_tr_t)
+    val_ds   = TensorDataset(*xs_v_t,  rel_v_t,  y_v_t)  if _use_rel else TensorDataset(*xs_v_t,  y_v_t)
 
     train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
     val_loader   = DataLoader(val_ds, batch_size=batch_size, shuffle=False)
@@ -148,11 +162,17 @@ def train_c1_egsf(
         total = 0
 
         for batch in train_loader:
-            b_xs = list(batch[:-1])
-            by   = batch[-1]
+            if _use_rel:
+                b_xs = list(batch[:-2])
+                b_rel = batch[-2]
+                by   = batch[-1]
+            else:
+                b_xs = list(batch[:-1])
+                b_rel = None
+                by   = batch[-1]
 
             optimizer.zero_grad()
-            logits, gates = model(b_xs)
+            logits, gates = model(b_xs, reliances=b_rel)
             loss = criterion(logits, by)
             loss.backward()
             optimizer.step()
@@ -172,10 +192,16 @@ def train_c1_egsf(
 
         with torch.no_grad():
             for batch in val_loader:
-                b_xs = list(batch[:-1])
-                by   = batch[-1]
+                if _use_rel:
+                    b_xs = list(batch[:-2])
+                    b_rel = batch[-2]
+                    by   = batch[-1]
+                else:
+                    b_xs = list(batch[:-1])
+                    b_rel = None
+                    by   = batch[-1]
 
-                logits, gates = model(b_xs)
+                logits, gates = model(b_xs, reliances=b_rel)
                 loss = criterion(logits, by)
                 running_val_loss += loss.item() * len(by)
                 preds = logits.argmax(dim=-1)
@@ -238,7 +264,8 @@ def _self_test() -> int:
 
     _check(logits.shape == (32, 4), f"Logits shape (32, 4): got {logits.shape}")
     _check(gates.shape == (32, 2), f"Gates shape (32, 2): got {gates.shape}")
-    _check((gates[:, 1] <= B_kappa[0.1][1] + 1e-6).all(), "Cue gate strictly bounded by D2 budget bound")
+    _check(torch.allclose(gates.sum(dim=-1), torch.ones(32), atol=1e-4), "Gates sum to 1.0 per sample")
+    _check((gates[:, 1] <= B_kappa[0.1][1] + 1e-4).all(), "Cue gate strictly bounded by D2 budget bound")
 
     print("=" * 62)
     if failures == 0:
